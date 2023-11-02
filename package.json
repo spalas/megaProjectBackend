@@ -1,0 +1,11 @@
+{
+  "name": "megaprojectbackend",
+  "version": "1.0.0",
+  "description": "a backend app",
+  "main": "index.js",
+  "scripts": {
+    "test": "javascript, backend ,megaProject"
+  },
+  "author": "palash sarkar",
+  "license": "ISC"
+}
