@@ -2,9 +2,10 @@
   "name": "megaprojectbackend",
   "version": "1.0.0",
   "description": "a backend app",
+  "type":"module",
   "main": "index.js",
   "scripts": {
-    "test": "javascript, backend ,megaProject"
+    "dev": "nodemon src/index.js"
   },
   "author": "palash sarkar",
   "license": "ISC"
