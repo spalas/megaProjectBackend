@@ -1,7 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 import mongooseAggregatePaginate from "mongoose-aggregate-paginate-v2";
-import jwt from "jsonwebtoken";
-import bcrypt from "bcrypt"
+
 
 
 const videoSchema = new Schema(
@@ -16,7 +15,7 @@ const videoSchema = new Schema(
             required: true,
             
         },
-      title : {
+        title: {
             type: String,
             required: true,
             
@@ -26,7 +25,7 @@ const videoSchema = new Schema(
             required: true,
             
         },
-      duration: {
+        duration: {
             type: Number,
             required: true,
             
@@ -38,7 +37,7 @@ const videoSchema = new Schema(
         },
         isPublished: {
             type: Boolean,
-            default:true,
+            default: true,
         },
 
         owner: {
@@ -53,16 +52,6 @@ const videoSchema = new Schema(
         timestamps: true,
     }
 )
-userSchema.pre('save', async function (next) {
-    if (!this.isModified("password")) return next();
-        
-    
-    this.password = bcrypt.hash(this.password, 10)
-    next()
-})
-userSchema.methods.isPasswordCorrect = async function
-    (password) {
-    return await bcrypt.compare(password, this.password)
-    }
+videoSchema.plugin(mongooseAggregatePaginate)
 
 export const Video = mongoose.model("Video", videoSchema)
