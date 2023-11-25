@@ -51,9 +51,10 @@ const userSchema = new Schema(
             
         },
         refreshToken: {
-            type: Sting
+            type: String
         }
 
+        
     },
    {
        timestamps: true

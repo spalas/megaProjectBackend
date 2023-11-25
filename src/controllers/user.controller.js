@@ -1,6 +1,6 @@
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { ApiError } from "../utils/ApiError.js"
-import { User } from "../models/user.model";
+import { User} from "../models/user.model.js"
 import { uploadOneCloudinary } from "../utils/cloudiary.js"
 import { ApiResponse } from "../utils/ApiResponse.js";
 
@@ -20,42 +20,54 @@ const registerUser = asyncHandler(async (req, res) => {
   //   })
 
 
-  const { fullname, email, username, password } = req.body
-  console.log("email: ", email);
+  const { fullName, email, username, password } = req.body
+  // console.log("email: ", email);
   
   // if (fullname === "") {
   //   throw new ApiError(400, "fullname is required")
   // }
   if (
-    [fullname, email, username, password].some((field)=>field?.trim()==="")
+    [fullName, email, username, password].some((field)=>field?.trim()===" ")
   ) {
     throw new ApiError(400, "All field is required")
   }
   
- const existerUser = User.findOne({
+ const existerUser = await User.findOne({
     $or: [{username}, {email}]
  })
+  
+  
   if (existerUser) {
     throw new ApiError(409, "User  with email or username already exists")
   }
 
-  const avatarLocalPath = req.files?.avatar[0]?.path;
-  const coverImageLocalPath = req.files?.coverImage[0]?.path;
-
+  // console.log(req.files);
+  let avatarLocalPath = req.files?.avatar[0]?.path;
+  // const coverImageLocalPath = req.files?.coverImage[0]?.path;
   if (!avatarLocalPath) {
-   throw new ApiError(400, "Avatar file is required")
-  }
+    throw new ApiError(400, "Avatar file is required")
+   }
+
+
+  let coverImageLocalPath;
+    if (req.files && Array.isArray(req.files.coverImage) && req.files.coverImage.length > 0) {
+        coverImageLocalPath = req.files.coverImage[0].path
+    }
+
+
+ 
 
   const avatar = await uploadOneCloudinary(avatarLocalPath)
   const coverImage = await uploadOneCloudinary(coverImageLocalPath)
+
   if (!avatar) { 
     throw new ApiError(400, "Avatar file is required")
   }
   
  const user = await User.create({
-    fullname,
+    fullName,
     avatar: avatar.url,
-    coverImage: coverImage.url?.url || "",
+    coverImage: coverImage?.url || " ",
     email,
     password,
     username : username.toLowerCase(),
@@ -74,4 +86,6 @@ const registerUser = asyncHandler(async (req, res) => {
 
 })
 
-export {registerUser}
+export {
+  registerUser,
+}
