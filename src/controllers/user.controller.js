@@ -40,7 +40,6 @@ const registerUser = asyncHandler(async (req, res) => {
   //       message: "hellow it ok "
   //   })
 
-
   const { fullName, email, username, password } = req.body
   // console.log("email: ", email);
   
@@ -75,9 +74,6 @@ const registerUser = asyncHandler(async (req, res) => {
         coverImageLocalPath = req.files.coverImage[0].path
     }
 
-
- 
-
   const avatar = await uploadOneCloudinary(avatarLocalPath)
   const coverImage = await uploadOneCloudinary(coverImageLocalPath)
 
@@ -100,12 +96,13 @@ const registerUser = asyncHandler(async (req, res) => {
   if (!createdUser) {
     throw new ApiError(500, "Something went wrong while  registering the user")
   }
-
   return res.status(201).json(
    new ApiResponse(200, createdUser, "user registered Successfully")
   )
-
 })
+/* end user register function */
+
+/* ******* start loginUser ******* */
 
 const loginUser = asyncHandler(async (req, res) => {
   /*1.req body
@@ -115,8 +112,6 @@ const loginUser = asyncHandler(async (req, res) => {
     5.access and refresh token
     6.send the cookie 
   */
-  
-    
   const { username, email, password } = req.body 
   console.log(email)
   
@@ -164,6 +159,9 @@ const loginUser = asyncHandler(async (req, res) => {
     )
 
 })
+/* end user loginUser function */
+
+/* ******* start logoutUser ******* */
 
 const logoutUser = asyncHandler(async(req, res) => {
   await User.findByIdAndUpdate(
@@ -336,6 +334,9 @@ const updateUserAvatar = asyncHandler(async (req,
   
 })
 /* **** END updateUserAvatar **** */
+
+
+
 /* **** Start updateUserCoverImage **** */
 
 const updateUserCoverImage = asyncHandler(async (req,
@@ -369,14 +370,15 @@ const updateUserCoverImage = asyncHandler(async (req,
 
   return res
     .status(200)
-    .json( new ApiResponse(200, user, "CoverIamge updated successfully"))
-
-
+    .json(new ApiResponse(200, user, "CoverIamge updated successfully"))
   
 })
+
 /* **** END updateUserCoverImage **** */
 
 /*  start getUserchannelProfile        */
+
+
 const getUserChannelProfile = asyncHandler(async (req,
   res) => {
   const { username } = req.params
@@ -450,7 +452,7 @@ const getUserChannelProfile = asyncHandler(async (req,
 
 })
    
-/* end */
+/* ***********end **************************/
 
 /* start getWatchHistory  */
 
