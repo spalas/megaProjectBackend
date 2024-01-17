@@ -1,14 +1,14 @@
 import { isValidObjectId } from "mongoose";
-import { asyncHandler } from "../utils/asyncHandler";
-import { ApiResponse } from "../utils/ApiResponse";
-import { ApiError } from "../utils/ApiError";
-import { Video } from "../models/video.model";
-import { User } from "../models/user.model";
+import {asyncHandler} from "../utils/asyncHandler.js";
+import { ApiResponse } from "../utils/ApiResponse.js";
+import { ApiError } from "../utils/ApiError.js";
+import { Video } from "../models/video.model.js";
+import { User } from "../models/user.model.js";
 
 import {
     uploadOneCloudinary,
     deleteOnCloudinary
-} from "../utils/cloudinary.js";
+} from "../utils/cloudiary.js";
 
 
 

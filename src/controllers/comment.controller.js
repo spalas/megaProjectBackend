@@ -1,9 +1,10 @@
 import mongoose, { Schema } from "mongoose";
 import { Comment } from "../models/comment.model.js";
+import { ApiResponse } from "../utils/ApiResponse.js";
+import { ApiError } from "../utils/ApiError.js";
 import { Video } from "../models/video.model.js";
-import ApiError from "../utils/ApiError.js";
-import ApiResponse from "../utils/ApiResponse.js";
-import asyncHandler from "../utils/asyncHandler.js";
+import { User } from "../models/user.model.js";
+import{ asyncHandler} from "../utils/asyncHandler.js";
 
 // get all comments for a video
 const getVideoComments = asyncHandler(async (req, res) => {
