@@ -36,8 +36,9 @@ const deleteOnCloudinary = async (public_id, resource_type="image") => {
           resource_type: `${resource_type}`
       });
   } catch (error) {
-      return error;
-      console.log("delete on cloudinary failed", error);
+      
+    console.log("delete on cloudinary failed", error);
+    return  error;
   }
 };
 
