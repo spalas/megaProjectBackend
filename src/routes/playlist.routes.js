@@ -17,6 +17,8 @@ router.use(verifyJWT, upload.none()); // Apply verifyJWT middleware to all route
 
 router.route("/").post(createPlaylist);
 
+// http://localhost:8000/api/v1/playlist
+
 router
     .route("/:playlistId")
     .get(getPlaylistById)

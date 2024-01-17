@@ -1,15 +1,20 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose, { isValidObjectId } from "mongoose";
 import { Comment } from "../models/comment.model.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { ApiError } from "../utils/ApiError.js";
 import { Video } from "../models/video.model.js";
-import { User } from "../models/user.model.js";
+
 import{ asyncHandler} from "../utils/asyncHandler.js";
 
 // get all comments for a video
 const getVideoComments = asyncHandler(async (req, res) => {
     const { videoId } = req.params;
     const { page = 1, limit = 10 } = req.query;
+
+    if(!isValidObjectId(videoId)){
+        throw new ApiError(400, "This video id is not valid")
+    }
+
 
     const video = await Video.findById(videoId);
 
